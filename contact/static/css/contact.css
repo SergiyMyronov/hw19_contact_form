@@ -1,0 +1,29 @@
+.content {
+    margin-left: 40px;
+}
+
+.page-header {
+    color: #ffffff;
+    background-color: #ff9400;
+    margin-top: 0;
+    padding: 15px 15px 15px 40px;
+}
+
+.block-header {
+    margin-top: 0;
+    padding: 15px 15px 15px 40px;
+}
+
+.pagination {
+    margin-top: 0;
+    background-color: #ff9400;
+    padding: 5px 5px 5px 40px;
+}
+
+.new_object {
+    padding: 5px 5px 5px 40px;
+}
+
+.left-block {
+    horiz-align: right;
+}

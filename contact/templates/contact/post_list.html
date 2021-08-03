@@ -1,0 +1,63 @@
+{% extends "contact/base.html" %}
+{% load static %}
+
+{% block title %}Posts{% endblock %}
+
+{% block pageheader %}
+    <h1>All published posts</h1>
+{% endblock %}
+{% block navcol1 %}
+    {% if user.is_authenticated %}
+         <a href="{% url 'user_post_list' %}" role="button" class="btn btn-default" >To my posts</a>
+    {% else %}
+         <a href="{% url 'login' %}" role="button" class="btn btn-default" >Login</a>
+    {% endif %}
+{% endblock %}
+{% block navcol2 %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'user_detail' %}" role="button" class="btn btn-default" >View profile</a>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    <div class="content">
+        <ul>
+        {% for ps in object_list %}
+            <li>
+                <h2>{{ ps.header }} </h2>
+                <h5>User: {{ ps.user }}</h5>
+                <h5>Short_description: {{ ps.short_description }}</h5>
+                <h5>Full_description: {{ ps.description|truncatechars:70 }}</h5>
+                <h5>Image: <img src="{{ MEDIA_URL }}{{ps.image.name}}" width="30" height="20" alt="Image"/> </h5>
+            </li>
+            <div class="new_object">
+                <h5><a href="comment/?post={{ ps.id }}&name={{ ps.header }}"> Comments:</a> {{ps.published_comments_count }}</h5>
+                <h5><a href="comment/new/?post={{ ps.id }}&name={{ ps.header }}"> + Add new comment +</a></h5>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <hr style="height:3px;background-color:black;border:none;" />
+                </div>
+            </div>
+        {% empty %}
+            <li>No posts yet.</li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}

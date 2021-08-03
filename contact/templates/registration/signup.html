@@ -1,0 +1,14 @@
+{% extends 'contact/base.html' %}
+ 
+{% block content %}
+    <div class="block-header">
+        <h3>Sign up</h3>
+    </div>
+    <div class="content">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Sign up</button>
+        </form>
+    </div>
+{% endblock content %}

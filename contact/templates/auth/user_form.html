@@ -1,0 +1,25 @@
+{% extends "contact/base.html" %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block pageheader %}
+    {% if object.username %}
+         <h1>{{ object.username }}</h1>
+    {% else %}
+         <h1>---------</h1>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    <div class="block-header">
+        <h3>Enter or change user data:</h3>
+    </div>
+    <div class="content">
+        <form method="post" enctype="multipart/form-data">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Save">
+        </form>
+    </div>
+    <div class="block-header">
+        <a href="{% url 'user_post_list' %}"> << Back to the list of posts >> </a>
+    </div>
+{% endblock %}

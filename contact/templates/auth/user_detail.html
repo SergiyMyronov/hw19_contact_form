@@ -1,0 +1,38 @@
+{% extends "contact/base.html" %}
+
+{% block title %}User Details{% endblock %}
+
+{% block pageheader %}
+    {% if object.username %}
+         <h1>{{ object.username }}</h1>
+    {% else %}
+         <h1>---------</h1>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    <div class="block-header">
+        <h3>User details:</h3>
+    </div>
+    <div class="content">
+        <table>
+            <tr>
+                <td><b>Username:</b> {{ object.username }}</td>
+            </tr>
+            <tr>
+                <td><b>email:</b> {{ object.email }}</td>
+            </tr>
+            <tr>
+                <td><b>Firstname:</b> {{ object.first_name }}</td>
+            </tr>
+            <tr>
+                <td><b>Lastname:</b> {{ object.last_name }}</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="divider"><hr/></td>
+            </tr>
+        </table>
+    </div>
+    <div class="block-header">
+        <a href="{% url 'post_list' %}"> << Back to the list of posts >> </a>
+    </div>
+{% endblock %}

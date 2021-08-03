@@ -1,0 +1,50 @@
+{% extends "./base.html" %}
+
+{% block title %}Comments{% endblock %}
+
+{% block pageheader %}
+    {% if ps_name %}
+        <h1>Comments on "{{ ps_name }}"</h1>
+    {% else %}
+        <h1>All comments</h1>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    <div class="content">
+        <ul>
+        {% for com in object_list %}
+            <li>
+                <h2>{{ com.username }} </h2>
+                <h5>{{ com.text }}</h5>
+            </li>
+            <div class="container-fluid">
+                <div class="row">
+                    <hr style="height:3px;background-color:black;border:none;" />
+                </div>
+            </div>
+        {% empty %}
+            <li>No published comments yet</li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last</a>
+            {% endif %}
+        </span>
+    </div>
+    <div class="block-header">
+        <a href="{{ back }}"> << Back to the list of posts >> </a>
+    </div>
+{% endblock %}

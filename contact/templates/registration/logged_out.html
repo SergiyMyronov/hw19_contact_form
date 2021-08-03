@@ -1,0 +1,13 @@
+{% extends "contact/base.html" %}
+
+{% block pageheader %}
+    <h3>Logged out!</h3>
+{% endblock %}
+{% block content %}
+    <div class="content">
+        <a href="{% url 'login'%}">Click here to login again.</a>
+    </div>
+    <div class="block-header">
+        <a href="{%  url 'post_list'%}"> << To the list of posts >> </a>
+    </div>
+{% endblock %}

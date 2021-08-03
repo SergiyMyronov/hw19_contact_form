@@ -1,0 +1,10 @@
+{% extends "./base.html" %}
+
+{% block title %}Delete Post{% endblock %}
+
+{% block pageheader %}
+    <h1>Are you sure you want to delete post "{{ object.header }}"?</h1>
+    <form method="post">{% csrf_token %}
+        <input type="submit" value="Confirm">
+    </form>
+{% endblock %}
