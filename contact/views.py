@@ -123,6 +123,7 @@ class CommentCreateView(CreateView):
 
 class MailToAdminCreateView(CreateView):
     model = MailToAdmin
+    template_name = 'contact/mailtoadmin_form_old.html'
     fields = ['username', 'from_mail', 'text']
     success_url = reverse_lazy('post_list')
 
