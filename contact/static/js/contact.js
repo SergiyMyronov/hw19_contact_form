@@ -35,8 +35,7 @@ $(function () {
 
   /* Binding */
 
-  // Create mail to admin
+  // Send mail to admin
   $(".js-create-mail").click(loadForm);
   $("#modal-book").on("submit", ".js-mail-create-form", saveForm);
-
 });

@@ -1,5 +1,5 @@
 from contact.forms import MailToAdminForm
-from contact.models import Comment, MailToAdmin, Post
+from contact.models import Comment, Post
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -123,13 +123,6 @@ class CommentCreateView(CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-# class MailToAdminCreateView(CreateView):
-#     model = MailToAdmin
-#     template_name = 'contact/mailtoadmin_form_old.html'
-#     fields = ['username', 'from_mail', 'text']
-#     success_url = reverse_lazy('post_list')
-
-
 class SignUpView(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('signup_done')
@@ -179,4 +172,3 @@ def mailtoadmin_create(request):
     else:
         form = MailToAdminForm()
     return save_mail_form(request, form, 'contact/mailtoadmin_create.html')
-

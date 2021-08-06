@@ -1,6 +1,6 @@
-from django import forms
-
 from contact.models import MailToAdmin
+
+from django import forms
 
 
 class MailToAdminForm(forms.ModelForm):
