@@ -1,5 +1,3 @@
-import datetime
-
 from contact.tasks import send_mail as celery_send_mail
 
 from django.conf import settings
@@ -8,13 +6,14 @@ from django.db import models
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.urls import reverse
+from django.utils import timezone
 
 
 class MailToAdmin(models.Model):
     username = models.CharField(max_length=100)
     text = models.TextField()
     from_mail = models.EmailField()
-    date = models.DateTimeField(default=datetime.datetime.now())
+    date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.text

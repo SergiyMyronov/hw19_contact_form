@@ -1,11 +1,13 @@
+from contact.forms import MailToAdminForm
 from contact.models import Comment, MailToAdmin, Post
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.db.models import Count
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
@@ -121,11 +123,11 @@ class CommentCreateView(CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-class MailToAdminCreateView(CreateView):
-    model = MailToAdmin
-    template_name = 'contact/mailtoadmin_form_old.html'
-    fields = ['username', 'from_mail', 'text']
-    success_url = reverse_lazy('post_list')
+# class MailToAdminCreateView(CreateView):
+#     model = MailToAdmin
+#     template_name = 'contact/mailtoadmin_form_old.html'
+#     fields = ['username', 'from_mail', 'text']
+#     success_url = reverse_lazy('post_list')
 
 
 class SignUpView(CreateView):
@@ -156,3 +158,25 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         obj = self.request.user
         return obj
+
+
+def save_mail_form(request, form, template_name):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            data['form_is_valid'] = True
+        else:
+            data['form_is_valid'] = False
+    context = {'form': form}
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+
+def mailtoadmin_create(request):
+    if request.method == 'POST':
+        form = MailToAdminForm(request.POST)
+    else:
+        form = MailToAdminForm()
+    return save_mail_form(request, form, 'contact/mailtoadmin_create.html')
+

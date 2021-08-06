@@ -30,7 +30,7 @@ class MailToAdminAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['username', 'from_mail', 'text']}),
     ]
-    list_display = ['username', 'from_mail', 'text']
+    list_display = ['username', 'from_mail', 'text', 'date']
     list_filter = ['username']
     search_fields = ['username']
 
