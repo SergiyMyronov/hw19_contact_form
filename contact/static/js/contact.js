@@ -32,10 +32,10 @@ $(function () {
     return false;
   };
 
-
   /* Binding */
 
   // Send mail to admin
   $(".js-create-mail").click(loadForm);
   $("#modal-book").on("submit", ".js-mail-create-form", saveForm);
+
 });
